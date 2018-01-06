@@ -74,12 +74,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
             startActivityForResult(intent, RC_OCR_CAPTURE);
         }
         if(v.getId() == R.id.save_text) {
-            File file = new File(path + "/" + textValue.getText().subSequence(1,6) + ".txt");
-            String[] savedText = String.valueOf(textValue.getText()).split(System.getProperty("line.separator"));
-            textValue.setText("");
-           // Toast.makeText(MainActivity.this)
-            statusMessage.setText(R.string.ok);
-            Save(file,savedText);
+            if(textValue.getText() != "") {
+                File file = new File(path + "/" + textValue.getText().subSequence(1, 6) + ".txt");
+                String[] savedText = String.valueOf(textValue.getText()).split(System.getProperty("line.separator"));
+                textValue.setText("");
+                // Toast.makeText(MainActivity.this)
+                statusMessage.setText(R.string.ok);
+                Save(file, savedText);
+            } else {
+                statusMessage.setText("No text to save");
+            }
         }
     }
 

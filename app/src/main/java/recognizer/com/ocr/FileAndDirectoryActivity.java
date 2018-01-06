@@ -16,7 +16,7 @@ package recognizer.com.ocr;
 public class FileAndDirectoryActivity extends ListActivity {
 
     private List<String> fileList = new ArrayList<String>();
-    public final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/ ";
+    public final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/readerFiles";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

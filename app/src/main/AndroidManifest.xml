@@ -29,6 +29,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="recognizer.com.ocr.FileAndDirectoryActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
 
         <activity android:name="recognizer.com.ocr.OcrCaptureActivity"
             android:label="Read Text" />

@@ -1,5 +1,6 @@
 package recognizer.com.ocr;
 
+import android.app.ListActivity;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,8 +11,10 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +25,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main activity demonstrating how to pass extra parameters to an activity that
@@ -39,6 +44,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/readerFiles";
     private static final int RC_OCR_CAPTURE = 9003;
     private static final String TAG = "MainActivity";
+    private List<String> fileList = new ArrayList<String>();
+    public final File dir = new File(path);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +55,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
         viewTextsButton =  findViewById(R.id.view_texts);
         statusMessage = findViewById(R.id.status_message);
         textValue = findViewById(R.id.text_value);
-
         autoFocus =  findViewById(R.id.auto_focus);
         useFlash =  findViewById(R.id.use_flash);
-        File file = new File(path);
-        file.mkdir();
+        //File dir = new File(path);
+        dir.mkdir();
 
         findViewById(R.id.read_text).setOnClickListener(this);
         findViewById(R.id.save_text).setOnClickListener(this);
+        findViewById(R.id.view_texts).setOnClickListener(this);
     }
 
     /**
@@ -84,6 +91,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
             } else {
                 statusMessage.setText("No text to save");
             }
+        }
+        if(v.getId() == R.id.view_texts) {
+            Intent intent = new Intent(MainActivity.this,FileAndDirectoryActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -164,4 +175,5 @@ public class MainActivity extends Activity implements View.OnClickListener {
             catch (IOException e) {e.printStackTrace();}
         }
     }
+
 }

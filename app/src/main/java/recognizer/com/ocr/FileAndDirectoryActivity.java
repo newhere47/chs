@@ -54,6 +54,7 @@ public class FileAndDirectoryActivity extends ListActivity {
                 Intent i = new Intent(getApplicationContext(), SingleListItem.class);
                 // sending data to new activity
                 i.putExtra("number",  ReadFile(num));
+                i.putExtra("fileName",path + "/" + num);
                 startActivity(i);
 
 
@@ -97,6 +98,15 @@ public class FileAndDirectoryActivity extends ListActivity {
         }
         System.out.println(line);
         return line;
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(FileAndDirectoryActivity.this, MainActivity.class));
+        finish();
+
     }
 
 

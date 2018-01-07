@@ -154,5 +154,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         statusMessage.setText(savedInstance.getString("statusString"));
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        finish();
+    }
+
 
 }

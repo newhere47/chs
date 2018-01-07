@@ -1,8 +1,6 @@
 package recognizer.com.ocr;
 
-/**
- * Created by Catalinoiu on 1/5/2018.
- */
+
 
 import android.support.design.widget.Snackbar;
 import android.view.ScaleGestureDetector;
@@ -322,7 +320,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         if (graphic != null) {
             text = graphic.getTextBlock();
             if (text != null && text.getValue() != null) {
-                Intent data = new Intent();
+                Intent data = new Intent(OcrCaptureActivity.this,MainActivity.class);
                 data.putExtra(TextBlockObject, text.getValue());
                 setResult(CommonStatusCodes.SUCCESS, data);
                 finish();
@@ -335,6 +333,15 @@ public final class OcrCaptureActivity extends AppCompatActivity {
             Log.d(TAG,"no text detected");
         }
         return text != null;
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(OcrCaptureActivity.this, MainActivity.class));
+        finish();
+
     }
 
     private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {

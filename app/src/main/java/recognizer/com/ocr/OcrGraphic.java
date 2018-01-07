@@ -1,8 +1,6 @@
 package recognizer.com.ocr;
 
-/**
- * Created by Catalinoiu on 1/5/2018.
- */
+
 
 
 import android.graphics.Canvas;

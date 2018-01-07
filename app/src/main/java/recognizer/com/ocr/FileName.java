@@ -1,6 +1,7 @@
 package recognizer.com.ocr;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -26,6 +27,7 @@ public class FileName extends Activity implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.file_name_layout);
+
         okButton = findViewById(R.id.save_name);
         editText = findViewById(R.id.input_text);
 
@@ -36,14 +38,20 @@ public class FileName extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.save_name) {
-            if(editText.getText().toString() != "" || editText.getText().toString() != "OK") {
+            if(!editText.getText().toString().isEmpty()) {
                 File file = new File(path + "/" + editText.getText()+ ".txt");
                 String[] savedText = String.valueOf(MainActivity.textValue.getText()).split(System.getProperty("line.separator"));
                 MainActivity.textValue.setText("");
                 // Toast.makeText(MainActivity.this)
-                editText.setText(R.string.ok);
+                editText.setText("Text file saved");
                 Save(file, savedText);
+                while(editText.getText().toString().equals("Text file saved")) {
+                    startActivity(new Intent(FileName.this, MainActivity.class));
+                    break;
+                }
             }
+        } else {
+            editText.setText("Not a valid name!");
         }
     }
 
@@ -75,6 +83,14 @@ public class FileName extends Activity implements View.OnClickListener{
                 e.printStackTrace();
             }
         }
+    }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(FileName.this, MainActivity.class));
+        finish();
+
     }
 }
 

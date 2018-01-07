@@ -15,9 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-/**
- * Created by Catalinoiu on 1/7/2018.
- */
+
 
 public class FileName extends Activity implements View.OnClickListener{
 
@@ -38,7 +36,7 @@ public class FileName extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.save_name) {
-            if(editText.getText().toString() != "") {
+            if(editText.getText().toString() != "" || editText.getText().toString() != "OK") {
                 File file = new File(path + "/" + editText.getText()+ ".txt");
                 String[] savedText = String.valueOf(MainActivity.textValue.getText()).split(System.getProperty("line.separator"));
                 MainActivity.textValue.setText("");

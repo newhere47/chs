@@ -44,13 +44,13 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
             sRectPaint = new Paint();
             sRectPaint.setColor(RED);
             sRectPaint.setStyle(Paint.Style.STROKE);
-            sRectPaint.setStrokeWidth(0.5f);
+            sRectPaint.setStrokeWidth(3.0f);
         }
 
         if (sTextPaint == null) {
             sTextPaint = new Paint();
             sTextPaint.setColor(GREEN);
-            sTextPaint.setTextSize(54.0f);
+            sTextPaint.setTextSize(1.0f);
         }
         // Redraw the overlay, as this graphic has been added.
         postInvalidate();
@@ -94,29 +94,49 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
     @Override
     public void draw(Canvas canvas) {
         TextBlock text = mText;
+        List<? extends Text> lineBoxes = text.getComponents();
+        List<? extends Text> wordBoxes;
         if (text == null) {
             return;
         }
-
-        // Draws the bounding box around the TextBlock.
         RectF rect = new RectF(text.getBoundingBox());
         rect.left = translateX(rect.left);
         rect.top = translateY(rect.top);
         rect.right = translateX(rect.right);
         rect.bottom = translateY(rect.bottom);
+      // RectPaint.set
         canvas.drawRect(rect, sRectPaint);
-        sTextPaint.setTextSize((rect.width()/100)*8);
-
-        // Break the text into multiple lines and draw each one according to its own bounding box.
-        List<? extends Text> textComponents = text.getComponents();
-        List<? extends Text> lineComponents;
-        for(Text currentText : textComponents) {
-            lineComponents  = currentText.getComponents();
-            for(Text currentComponen : lineComponents) {
-                float left = translateX(currentComponen.getBoundingBox().left);
-                float bottom = translateY(currentComponen.getBoundingBox().bottom);
-                canvas.drawText(currentComponen.getValue(), left, bottom, sTextPaint);
+        // Draws the bounding box around the TextBlock.
+        for(Text line : lineBoxes) {
+            wordBoxes = line.getComponents();
+            for(Text word : wordBoxes) {
+                float left = translateX(word.getBoundingBox().left);
+                float bottom = translateY(word.getBoundingBox().bottom);
+                sTextPaint.setTextSize(getCorrectSize(word.getValue(),word.getBoundingBox().width()));
+                canvas.drawText(word.getValue(), left, bottom, sTextPaint);
             }
         }
+
+
+        // Break the text into multiple lines and draw each one according to its own bounding box.
+      /*  List<? extends Text> boxComponents = text.getComponents();
+        List<? extends Text> lineComponents;a
+        List<? extends Text> words;
+        for(Text currentText : boxComponents) {
+            lineComponents  = currentText.getComponents();
+            for(Text currentComponent : lineComponents) {
+                float left = translateX(currentComponent.getBoundingBox().left);
+                float bottom = translateY(currentComponent.getBoundingBox().bottom);
+                sTextPaint.setTextSize(currentComponent.getBoundingBox().width());
+                canvas.drawText(currentComponent.getValue(), left, bottom, sTextPaint);
+            }
+        }*/
+    }
+
+    private int getCorrectSize(String text, int boxWidth){
+//        float [] widths = new float[text.length()];
+//        int currenctWidth = sTextPaint.getTextWidths(text,widths);
+        int numberOfLettters = text.length();
+        return (boxWidth/numberOfLettters);
     }
 }

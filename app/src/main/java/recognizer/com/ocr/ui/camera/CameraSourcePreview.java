@@ -1,8 +1,6 @@
 package recognizer.com.ocr.ui.camera;
 
-/**
- * Created by Catalinoiu on 1/5/2018.
- */
+
 
 import android.Manifest;
 import android.content.Context;

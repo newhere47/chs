@@ -140,5 +140,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstance) {
+        super.onSaveInstanceState(savedInstance);
+        savedInstance.putString("detectedString",textValue.getText().toString());
+        savedInstance.putString("statusString",statusMessage.getText().toString());
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstance) {
+        super.onRestoreInstanceState(savedInstance);
+        textValue.setText(savedInstance.getString("detectedString"));
+        statusMessage.setText(savedInstance.getString("statusString"));
+    }
+
 
 }

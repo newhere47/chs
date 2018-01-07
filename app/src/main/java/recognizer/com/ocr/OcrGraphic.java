@@ -26,7 +26,9 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
 
     private int mId;
 
-    private static final int TEXT_COLOR = Color.WHITE;
+    private static final int WHITE = Color.WHITE;
+    private static final int RED = Color.RED;
+    private static final int BLUE = Color.BLUE;
 
     private static Paint sRectPaint;
     private static Paint sTextPaint;
@@ -39,14 +41,14 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
 
         if (sRectPaint == null) {
             sRectPaint = new Paint();
-            sRectPaint.setColor(TEXT_COLOR);
+            sRectPaint.setColor(RED);
             sRectPaint.setStyle(Paint.Style.STROKE);
-            sRectPaint.setStrokeWidth(4.0f);
+            sRectPaint.setStrokeWidth(0.5f);
         }
 
         if (sTextPaint == null) {
             sTextPaint = new Paint();
-            sTextPaint.setColor(TEXT_COLOR);
+            sTextPaint.setColor(BLUE);
             sTextPaint.setTextSize(54.0f);
         }
         // Redraw the overlay, as this graphic has been added.
@@ -102,13 +104,18 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
         rect.right = translateX(rect.right);
         rect.bottom = translateY(rect.bottom);
         canvas.drawRect(rect, sRectPaint);
+        sTextPaint.setTextSize(rect.height()/5);
 
         // Break the text into multiple lines and draw each one according to its own bounding box.
         List<? extends Text> textComponents = text.getComponents();
+        List<? extends Text> lineComponents;
         for(Text currentText : textComponents) {
-            float left = translateX(currentText.getBoundingBox().left);
-            float bottom = translateY(currentText.getBoundingBox().bottom);
-            canvas.drawText(currentText.getValue(), left, bottom, sTextPaint);
+            lineComponents  = currentText.getComponents();
+            for(Text currentComponen : lineComponents) {
+                float left = translateX(currentComponen.getBoundingBox().left);
+                float bottom = translateY(currentComponen.getBoundingBox().bottom);
+                canvas.drawText(currentComponen.getValue(), left, bottom, sTextPaint);
+            }
         }
     }
 }

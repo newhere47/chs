@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,7 +83,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         if(v.getId() == R.id.save_text) {
             if(textValue.getText() != "") {
-                File file = new File(path + "/" + textValue.getText().subSequence(1, 6) + ".txt");
+                PopupMenu popup = new PopupMenu(MainActivity.this, saveButton);
+                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+                File file = new File(path + "/" + textValue.getText().subSequence(0, 5) + ".txt");
                 String[] savedText = String.valueOf(textValue.getText()).split(System.getProperty("line.separator"));
                 textValue.setText("");
                 // Toast.makeText(MainActivity.this)

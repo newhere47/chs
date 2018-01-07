@@ -104,7 +104,7 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
         rect.right = translateX(rect.right);
         rect.bottom = translateY(rect.bottom);
         canvas.drawRect(rect, sRectPaint);
-        sTextPaint.setTextSize(rect.height()/5);
+        sTextPaint.setTextSize((rect.width()/100)*5);
 
         // Break the text into multiple lines and draw each one according to its own bounding box.
         List<? extends Text> textComponents = text.getComponents();

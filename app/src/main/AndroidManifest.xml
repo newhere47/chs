@@ -37,6 +37,10 @@
             android:name="recognizer.com.ocr.SingleListItem"
             android:label="@string/title_activity_main" >
         </activity>
+        <activity
+            android:name="recognizer.com.ocr.FileName"
+            android:label="@string/title_activity_main" >
+        </activity>
 
         <activity android:name="recognizer.com.ocr.OcrCaptureActivity"
             android:label="Read Text" />

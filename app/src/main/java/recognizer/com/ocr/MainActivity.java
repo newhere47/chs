@@ -39,7 +39,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private CompoundButton autoFocus;
     private CompoundButton useFlash;
     private TextView statusMessage;
-    private TextView textValue;
+    public static TextView textValue;
     private Button saveButton;
     private Button viewTextsButton;
     public final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/readerFiles";
@@ -83,14 +83,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         if(v.getId() == R.id.save_text) {
             if(textValue.getText() != "") {
-                PopupMenu popup = new PopupMenu(MainActivity.this, saveButton);
-                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
-                File file = new File(path + "/" + textValue.getText().subSequence(0, 5) + ".txt");
-                String[] savedText = String.valueOf(textValue.getText()).split(System.getProperty("line.separator"));
-                textValue.setText("");
-                // Toast.makeText(MainActivity.this)
-                statusMessage.setText(R.string.ok);
-                Save(file, savedText);
+                Intent intent = new Intent(MainActivity.this,FileName.class);
+                startActivity(intent);
             } else {
                 statusMessage.setText("No text to save");
             }
@@ -146,37 +140,5 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    public static void Save(File file, String[] data)
-    {
-        FileOutputStream fos = null;
-        try
-        {
-            fos = new FileOutputStream(file);
-        }
-        catch (FileNotFoundException e) {e.printStackTrace();}
-        try
-        {
-            try
-            {
-                for (int i = 0; i<data.length; i++)
-                {
-                    fos.write(data[i].getBytes());
-                    if (i < data.length-1)
-                    {
-                        fos.write("\n".getBytes());
-                    }
-                }
-            }
-            catch (IOException e) {e.printStackTrace();}
-        }
-        finally
-        {
-            try
-            {
-                fos.close();
-            }
-            catch (IOException e) {e.printStackTrace();}
-        }
-    }
 
 }

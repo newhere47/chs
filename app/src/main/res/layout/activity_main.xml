@@ -50,7 +50,7 @@
         android:layout_above="@+id/view_texts"
         android:layout_alignEnd="@+id/view_texts"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/colorPrimary"
         android:checked="true"
         android:text="@string/auto_focus" />
@@ -59,9 +59,8 @@
         android:id="@+id/use_flash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/save_text"
+        android:layout_alignBottom="@+id/auto_focus"
         android:layout_alignStart="@+id/save_text"
-        android:layout_marginBottom="12dp"
         android:background="@color/colorPrimary"
         android:checked="false"
         android:text="@string/use_flash" />

@@ -14,6 +14,7 @@ import java.io.File;
 
 public class SingleListItem extends Activity implements View.OnClickListener {
     private Button deleteButton;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,28 +25,26 @@ public class SingleListItem extends Activity implements View.OnClickListener {
 
         TextView txtProduct = findViewById(R.id.text_value);
 
-        Intent i = getIntent();
-        // getting attached intent data
-        String product = i.getStringExtra("number");
-        // displaying selected product name
+        Intent intent = getIntent();
+        String product = intent.getStringExtra("fileName");
         txtProduct.setText(product);
 
     }
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.delete_text) {
+        if (view.getId() == R.id.delete_text) {
             Intent i = getIntent();
-            String fileName = i.getStringExtra("fileName");
+            String fileName = i.getStringExtra("filePath");
             File file = new File(fileName);
             file.delete();
-            Intent intent = new Intent(SingleListItem.this,FileAndDirectoryActivity.class);
+            Intent intent = new Intent(SingleListItem.this, FileAndDirectoryActivity.class);
             startActivity(intent);
         }
     }
+
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(SingleListItem.this, FileAndDirectoryActivity.class));
         finish();

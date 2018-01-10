@@ -17,12 +17,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-
-public class FileName extends Activity implements View.OnClickListener{
+public class FileName extends Activity implements View.OnClickListener {
 
     public final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/readerFiles";
     private Button okButton;
     private EditText editText;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,15 +37,14 @@ public class FileName extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.save_name) {
-            if(!editText.getText().toString().isEmpty()) {
-                File file = new File(path + "/" + editText.getText()+ ".txt");
+        if (v.getId() == R.id.save_name) {
+            if (!editText.getText().toString().isEmpty()) {
+                File file = new File(path + "/" + editText.getText() + ".txt");
                 String[] savedText = String.valueOf(MainActivity.textValue.getText()).split(System.getProperty("line.separator"));
                 MainActivity.textValue.setText("");
-                // Toast.makeText(MainActivity.this)
                 editText.setText("Text file saved");
                 Save(file, savedText);
-                while(editText.getText().toString().equals("Text file saved")) {
+                while (editText.getText().toString().equals("Text file saved")) {
                     startActivity(new Intent(FileName.this, MainActivity.class));
                     break;
                 }
@@ -54,8 +53,6 @@ public class FileName extends Activity implements View.OnClickListener{
             editText.setText("Not a valid name!");
         }
     }
-
-
 
 
     public static void Save(File file, String[] data) {
@@ -84,9 +81,9 @@ public class FileName extends Activity implements View.OnClickListener{
             }
         }
     }
+
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(FileName.this, MainActivity.class));
         finish();
